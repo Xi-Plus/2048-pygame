@@ -117,6 +117,19 @@ class Game:
                 j -= 1
         return moved, score
 
+    def check_gameover(self):
+        if np.sum(self.board == None) != 0:
+            return False
+        for i in range(4):
+            for j in range(3):
+                if self.board[i][j] and self.board[i][j] and self.board[i][j].val == self.board[i][j + 1].val:
+                    return False
+        for i in range(4):
+            for j in range(3):
+                if self.board[j][i] and self.board[j + 1][i] and self.board[j][i].val == self.board[j + 1][i].val:
+                    return False
+        return True
+
 
 class Block:
     def __init__(self, val):
