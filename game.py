@@ -18,7 +18,7 @@ class Game:
         while self.board[a][b] is not None:
             a = random.randint(0, 3)
             b = random.randint(0, 3)
-        self.board[a][b] = Block(a, b, 2)
+        self.board[a][b] = Block(2)
         return a, b
 
     def move_left(self):
@@ -31,6 +31,16 @@ class Game:
                         self.board[i][k] = self.board[i][k + 1]
                         self.board[i][k + 1] = None
                         moved = True
+        for i in range(4):
+            j = 0
+            while j <= 2:
+                if self.board[i][j] and self.board[i][j + 1] and self.board[i][j].val == self.board[i][j + 1].val:
+                    self.board[i][j].val *= 2
+                    for k in range(j + 1, 3):
+                        self.board[i][k] = self.board[i][k + 1]
+                    self.board[i][3] = None
+                    moved = True
+                j += 1
         return moved
 
     def move_right(self):
@@ -43,6 +53,16 @@ class Game:
                         self.board[i][k] = self.board[i][k - 1]
                         self.board[i][k - 1] = None
                         moved = True
+        for i in range(4):
+            j = 3
+            while j >= 1:
+                if self.board[i][j] and self.board[i][j - 1] and self.board[i][j].val == self.board[i][j - 1].val:
+                    self.board[i][j].val *= 2
+                    for k in range(j - 1, 0, -1):
+                        self.board[i][k] = self.board[i][k - 1]
+                    self.board[i][0] = None
+                    moved = True
+                j -= 1
         return moved
 
     def move_up(self):
@@ -55,6 +75,16 @@ class Game:
                         self.board[k][i] = self.board[k + 1][i]
                         self.board[k + 1][i] = None
                         moved = True
+        for i in range(4):
+            j = 0
+            while j <= 2:
+                if self.board[j][i] and self.board[j + 1][i] and self.board[j][i].val == self.board[j + 1][i].val:
+                    self.board[j][i].val *= 2
+                    for k in range(j + 1, 3):
+                        self.board[k][i] = self.board[k + 1][i]
+                    self.board[3][i] = None
+                    moved = True
+                j += 1
         return moved
 
     def move_down(self):
@@ -67,13 +97,21 @@ class Game:
                         self.board[k][i] = self.board[k - 1][i]
                         self.board[k - 1][i] = None
                         moved = True
+        for i in range(4):
+            j = 3
+            while j >= 1:
+                if self.board[j][i] and self.board[j - 1][i] and self.board[j][i].val == self.board[j - 1][i].val:
+                    self.board[j][i].val *= 2
+                    for k in range(j - 1, 0, -1):
+                        self.board[k][i] = self.board[k - 1][i]
+                    self.board[0][i] = None
+                    moved = True
+                j -= 1
         return moved
 
 
 class Block:
-    def __init__(self, x, y, val):
-        self.x = x
-        self.y = y
+    def __init__(self, val):
         self.val = val
 
     def __repr__(self):
