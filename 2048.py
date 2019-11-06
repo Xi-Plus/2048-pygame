@@ -3,7 +3,13 @@ import pygame
 import os
 from game import Game
 
+pygame.mixer.pre_init(44100, 16, 2, 2048)
+pygame.mixer.init()
 pygame.init()
+
+soundObj1 = pygame.mixer.Sound('sounds/sound11.ogg')
+soundObj2 = pygame.mixer.Sound('sounds/sound111.ogg')
+soundObj3 = pygame.mixer.Sound('sounds/game-over-arcade.ogg')
 
 WIN_WIDTH, WIN_HEIGHT = 490, 600
 FRAME_PER_SECONDS = 20
@@ -57,7 +63,10 @@ while run:
                 moved, temp_score = game.move_down()
             if moved:
                 game.random_lay()
-                score += temp_score
+                soundObj1.play()
+                if temp_score:
+                    score += temp_score
+                    soundObj2.play()
 
             if gameover and event.key == pygame.K_RETURN:
                 game = Game()
@@ -66,8 +75,9 @@ while run:
                 gameover = False
                 score = 0
 
-    if game.check_gameover():
+    if not gameover and game.check_gameover():
         gameover = True
+        soundObj3.play()
 
     myfont = pygame.font.Font(None, 60)
     textImage3 = myfont.render('2048', True, (119, 110, 101))
