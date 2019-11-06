@@ -49,7 +49,7 @@ BLOCK_COLOR = {
 }
 
 run = True
-score = 1000
+score = 0
 gameover = False
 
 game = Game()
@@ -93,7 +93,7 @@ while run:
 
     show_text('2048', None, 60, (119, 110, 101), 50, 20)
 
-    show_text('使用上下左右鍵控制', 'msjh.ttf', 24, (119, 110, 101), 50, 60)
+    show_text('使用上下左右鍵控制', 'NotoSansTC-Regular.otf', 24, (119, 110, 101), 50, 60)
 
     # score
     pygame.draw.rect(screen, (187, 173, 160), (300, 30, 70, 50), 0)
@@ -119,7 +119,7 @@ while run:
     if gameover:
         show_text('GAME OVER', None, 80, (255, 0, 0), 245, 240, center=True)
 
-        show_text('按Enter開始新局', 'msjh.ttf', 48, (255, 0, 0), 245, 300, center=True)
+        show_text('按Enter開始新局', 'NotoSansTC-Regular.otf', 48, (255, 0, 0), 245, 300, center=True)
 
     pygame.display.update()
 
