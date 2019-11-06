@@ -18,7 +18,7 @@ class Game:
         while self.board[a][b] is not None:
             a = random.randint(0, 3)
             b = random.randint(0, 3)
-        self.board[a][b] = Block(2)
+        self.board[a][b] = Block(2, a, b)
         return a, b
 
     def move_left(self):
@@ -130,10 +130,18 @@ class Game:
                     return False
         return True
 
+    def updatexy(self):
+        for i in range(4):
+            for j in range(4):
+                if self.board[i][j]:
+                    self.board[i][j].x = i
+                    self.board[i][j].y = j
 
 class Block:
-    def __init__(self, val):
+    def __init__(self, val, x, y):
         self.val = val
+        self.x = x
+        self.y = y
 
     def __repr__(self):
         return str(self.val)

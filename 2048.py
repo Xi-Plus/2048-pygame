@@ -74,11 +74,36 @@ while run:
             if event.key == pygame.K_DOWN:
                 moved, temp_score = game.move_down()
             if moved:
-                game.random_lay()
                 soundObj1.play()
                 if temp_score:
                     score += temp_score
                     soundObj2.play()
+                for k in range(9, 0, -1):
+                    pygame.draw.rect(screen, (187, 173, 160), (20, 100, 450, 450), 0)
+
+                    for i in range(4):
+                        for j in range(4):
+                            pygame.draw.rect(screen, BLOCK_COLOR[''], (30 + j * 110, 110 + i * 110, 100, 100), 0)
+
+                    for i in range(4):
+                        for j in range(4):
+                            if game.board[i, j] is not None:
+                                posx = 30 + j * 110 + (game.board[i, j].y - j) * 110 * k // 10
+                                posy = 110 + i * 110 + (game.board[i, j].x - i) * 110 * k // 10
+                                pygame.draw.rect(screen, BLOCK_COLOR[game.board[i, j].val], (
+                                    posx,
+                                    posy,
+                                    100, 100), 0)
+
+                                show_text(str(game.board[i, j].val), None, 72, (119, 110, 101),
+                                          posx + 50,
+                                          posy + 50,
+                                          center=True)
+
+                    pygame.display.update()
+                    pygame.time.wait(5)
+                game.updatexy()
+                game.random_lay()
 
             if gameover and event.key == pygame.K_RETURN:
                 game = Game()
