@@ -31,6 +31,7 @@ BLOCK_COLOR = {
 }
 
 run = True
+score = 0
 
 game = Game()
 game.random_lay()
@@ -46,15 +47,16 @@ while run:
         if event.type == pygame.KEYDOWN:
             moved = False
             if event.key == pygame.K_LEFT:
-                moved = game.move_left()
+                moved, temp_score = game.move_left()
             if event.key == pygame.K_RIGHT:
-                moved = game.move_right()
+                moved, temp_score = game.move_right()
             if event.key == pygame.K_UP:
-                moved = game.move_up()
+                moved, temp_score = game.move_up()
             if event.key == pygame.K_DOWN:
-                moved = game.move_down()
+                moved, temp_score = game.move_down()
             if moved:
                 game.random_lay()
+                score += temp_score
 
     myfont = pygame.font.Font(None, 60)
     textImage1 = myfont.render('2048', True, (119, 110, 101))
@@ -68,8 +70,12 @@ while run:
     pygame.draw.rect(screen, (187, 173, 160), (300, 30, 70, 50), 0)
 
     myfont = pygame.font.Font(None, 24)
-    textImage1 = myfont.render('SCORE', True, (255, 255, 255))
+    textImage1 = myfont.render('SCORE', True, (238, 228, 218))
     screen.blit(textImage1, (305, 32))
+
+    myfont = pygame.font.Font(None, 32)
+    textImage1 = myfont.render(str(score), True, (255, 255, 255))
+    screen.blit(textImage1, (320, 50))
 
     pygame.draw.rect(screen, (187, 173, 160), (20, 100, 450, 450), 0)
 
