@@ -86,14 +86,19 @@ while run:
 
         if event.type == pygame.KEYDOWN:
             moved = False
+            deleted_blocks = []
             if event.key == pygame.K_LEFT:
-                moved, temp_score = game.move_left()
+                moved, temp_score, temp_deleted_blocks = game.move_left()
+                deleted_blocks.extend(temp_deleted_blocks)
             if event.key == pygame.K_RIGHT:
-                moved, temp_score = game.move_right()
+                moved, temp_score, temp_deleted_blocks = game.move_right()
+                deleted_blocks.extend(temp_deleted_blocks)
             if event.key == pygame.K_UP:
-                moved, temp_score = game.move_up()
+                moved, temp_score, temp_deleted_blocks = game.move_up()
+                deleted_blocks.extend(temp_deleted_blocks)
             if event.key == pygame.K_DOWN:
-                moved, temp_score = game.move_down()
+                moved, temp_score, temp_deleted_blocks = game.move_down()
+                deleted_blocks.extend(temp_deleted_blocks)
             if moved:
                 soundObj1.play()
                 if temp_score:
@@ -120,6 +125,19 @@ while run:
                                           posx + 50,
                                           posy + 50,
                                           center=True)
+
+                    for block in deleted_blocks:
+                        posx = 30 + block.ny * 110 + (block.y - block.ny) * 110 * k // 10
+                        posy = 110 + block.nx * 110 + (block.x - block.nx) * 110 * k // 10
+                        pygame.draw.rect(screen, BLOCK_BG_COLOR[block.val], (
+                            posx,
+                            posy,
+                            100, 100), 0)
+
+                        show_text(str(block.val), None, 72, BLOCK_FONT_COLOR[block.val],
+                                    posx + 50,
+                                    posy + 50,
+                                    center=True)
 
                     pygame.display.update()
                     pygame.time.wait(5)
