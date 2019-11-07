@@ -34,18 +34,39 @@ def show_text(text, font, size, color, posX, posY, center=False):
         screen.blit(TextSurf, (posX, posY))
 
 
-BLOCK_COLOR = {
+BLOCK_BG_COLOR = {
     '': (201, 191, 180),
     2: (238, 228, 218),
     4: (237, 224, 200),
-    8: (237, 224, 200),
-    16: (237, 224, 200),
-    32: (237, 224, 200),
-    64: (237, 224, 200),
-    128: (237, 224, 200),
-    256: (237, 224, 200),
-    512: (237, 224, 200),
-    1024: (237, 224, 200),
+    8: (242, 177, 121),
+    16: (245, 149, 99),
+    32: (246, 124, 95),
+    64: (246, 94, 59),
+    128: (237, 207, 114),
+    256: (237, 204, 97),
+    512: (237, 200, 80),
+    1024: (237, 197, 63),
+    2048: (237, 194, 46),
+    4096: (60, 58, 50),
+    8192: (60, 58, 50),
+    16384: (60, 58, 50),
+}
+BLOCK_FONT_COLOR = {
+    '': (119, 110, 101),
+    2: (119, 110, 101),
+    4: (119, 110, 101),
+    8: (249, 246, 242),
+    16: (249, 246, 242),
+    32: (249, 246, 242),
+    64: (249, 246, 242),
+    128: (249, 246, 242),
+    256: (249, 246, 242),
+    512: (249, 246, 242),
+    1024: (249, 246, 242),
+    2048: (249, 246, 242),
+    4096: (249, 246, 242),
+    8192: (249, 246, 242),
+    16384: (249, 246, 242),
 }
 
 run = True
@@ -83,19 +104,19 @@ while run:
 
                     for i in range(4):
                         for j in range(4):
-                            pygame.draw.rect(screen, BLOCK_COLOR[''], (30 + j * 110, 110 + i * 110, 100, 100), 0)
+                            pygame.draw.rect(screen, BLOCK_BG_COLOR[''], (30 + j * 110, 110 + i * 110, 100, 100), 0)
 
                     for i in range(4):
                         for j in range(4):
                             if game.board[i, j] is not None:
                                 posx = 30 + j * 110 + (game.board[i, j].y - j) * 110 * k // 10
                                 posy = 110 + i * 110 + (game.board[i, j].x - i) * 110 * k // 10
-                                pygame.draw.rect(screen, BLOCK_COLOR[game.board[i, j].val], (
+                                pygame.draw.rect(screen, BLOCK_BG_COLOR[game.board[i, j].val], (
                                     posx,
                                     posy,
                                     100, 100), 0)
 
-                                show_text(str(game.board[i, j].val), None, 72, (119, 110, 101),
+                                show_text(str(game.board[i, j].val), None, 72, BLOCK_FONT_COLOR[game.board[i, j].val],
                                           posx + 50,
                                           posy + 50,
                                           center=True)
@@ -132,11 +153,11 @@ while run:
     for i in range(4):
         for j in range(4):
             if game.board[i, j] is None:
-                pygame.draw.rect(screen, BLOCK_COLOR[''], (30 + j * 110, 110 + i * 110, 100, 100), 0)
+                pygame.draw.rect(screen, BLOCK_BG_COLOR[''], (30 + j * 110, 110 + i * 110, 100, 100), 0)
             else:
-                pygame.draw.rect(screen, BLOCK_COLOR[game.board[i, j].val], (30 + j * 110, 110 + i * 110, 100, 100), 0)
+                pygame.draw.rect(screen, BLOCK_BG_COLOR[game.board[i, j].val], (30 + j * 110, 110 + i * 110, 100, 100), 0)
 
-                show_text(str(game.board[i, j].val), None, 72, (119, 110, 101),
+                show_text(str(game.board[i, j].val), None, 72, BLOCK_FONT_COLOR[game.board[i, j].val],
                           30 + j * 110 + 50,
                           110 + i * 110 + 50,
                           center=True)
